@@ -41,7 +41,7 @@
     </dependencies>
 
     <properties>
-        <microservice.mainClass>org.example.service.Application</microservice.mainClass>
+        <microservice.mainClass>com.virtusa.microservices.Application</microservice.mainClass>
     </properties>
 
 </project>
