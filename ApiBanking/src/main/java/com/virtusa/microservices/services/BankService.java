@@ -50,4 +50,10 @@ public class BankService {
         Bank bank = new BankDAO().get(bank_id);
         return gson.toJson(bank);
     }
+
+    @GET
+    @Path("/hi")
+    public String hi(){
+        return "Hi This is the newly created web service";
+    }
 }
