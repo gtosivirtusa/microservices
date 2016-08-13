@@ -18,12 +18,11 @@ package com.virtusa.microservices.services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.virtusa.microservices.data.dao.BankResource;
+import com.virtusa.microservices.data.dao.BankDAO;
 import com.virtusa.microservices.data.model.Bank;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
@@ -39,8 +38,16 @@ public class BankService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String getAll(){
-        List<Bank> banks = new BankResource().getAll();
+        List<Bank> banks = new BankDAO().getAll();
         return gson.toJson(banks);
     }
 
+    @GET
+    @Path("/get/{bank_id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String get(@PathParam("bank_id") int bank_id){
+        Bank bank = new BankDAO().get(bank_id);
+        return gson.toJson(bank);
+    }
 }
