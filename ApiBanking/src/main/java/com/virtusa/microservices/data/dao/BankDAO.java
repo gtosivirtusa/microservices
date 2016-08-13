@@ -42,7 +42,7 @@ public class BankDAO {
         Bank bank = null;
         try {
             Connection con = ConnectionFactory.getConnection();
-            PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM SmartBankDb.Banks where 'bank_id'=" + bank_id + ";");
+            PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM SmartBankDb.Banks where bank_id=" + bank_id + ";");
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 bank = new Bank();
