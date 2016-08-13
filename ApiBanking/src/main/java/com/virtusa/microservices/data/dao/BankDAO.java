@@ -39,13 +39,13 @@ public class BankDAO {
 
     public Bank get(int bank_id){
         ConnectionFactory.getConnection();
-        Bank banks = new Bank();
+        Bank bank = null;
         try {
             Connection con = ConnectionFactory.getConnection();
             PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM SmartBankDb.Banks where 'bank_id'=" + bank_id + ";");
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                Bank bank = new Bank();
+                bank = new Bank();
                 bank.setBank_id(resultSet.getInt("bank_id"));
                 bank.setBank_reg_number(resultSet.getString("bank_reg_number"));
                 bank.setBank_name(resultSet.getString("bank_name"));
@@ -55,6 +55,6 @@ public class BankDAO {
         } catch (SQLException ex) {
             Logger.getLogger(BankDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return banks;
+        return bank;
     }
 }
