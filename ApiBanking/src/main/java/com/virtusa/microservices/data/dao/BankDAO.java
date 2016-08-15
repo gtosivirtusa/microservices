@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 public class BankDAO {
 
     public List<Bank> getAll() {
-        ConnectionFactory.getConnection();
         List<Bank> banks = new ArrayList<>();
         try {
             Connection con = ConnectionFactory.getConnection();
@@ -38,7 +37,6 @@ public class BankDAO {
     }
 
     public Bank get(int bank_id){
-        ConnectionFactory.getConnection();
         Bank bank = null;
         try {
             Connection con = ConnectionFactory.getConnection();
