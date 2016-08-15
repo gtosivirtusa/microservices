@@ -51,9 +51,4 @@ public class BankService {
         return gson.toJson(bank);
     }
 
-    @GET
-    @Path("/hi")
-    public String hi(){
-        return "Hi This is the newly created web service";
-    }
 }
