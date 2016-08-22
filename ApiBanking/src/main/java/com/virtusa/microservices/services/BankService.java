@@ -41,12 +41,6 @@ public class BankService {
         return gson.toJson(banks);
     }
 
-    @GET
-    @Path("/get/{bank_id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String get(@PathParam("bank_id") int bankID){
-        Bank bank = new BankDAO().get(bankID);
-        return gson.toJson(bank);
-    }
+
 
 }

@@ -36,23 +36,4 @@ public class BankDAO {
         return banks;
     }
 
-    public Bank get(int bank_id){
-        Bank bank = null;
-        try {
-            Connection con = ConnectionFactory.getConnection();
-            PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM SmartBankDb.Banks where bank_id=" + bank_id + ";");
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                bank = new Bank();
-                bank.setBank_id(resultSet.getInt("bank_id"));
-                bank.setBank_reg_number(resultSet.getString("bank_reg_number"));
-                bank.setBank_name(resultSet.getString("bank_name"));
-                bank.setCountry(resultSet.getString("country"));
-                bank.setRegistered_address(resultSet.getString("registered_address"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(BankDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return bank;
-    }
 }
