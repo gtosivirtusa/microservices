@@ -16,6 +16,7 @@
 
 package com.virtusa.microservices;
 
+import com.virtusa.microservices.services.AccountService;
 import com.virtusa.microservices.services.BankService;
 import org.wso2.msf4j.MicroservicesRunner;
 
@@ -24,7 +25,7 @@ import org.wso2.msf4j.MicroservicesRunner;
  */
 public class Application {
     public static void main(String[] args) {
-        int port=8080;
+        int port=7878;
         if (args.length>0){
             try {
                 port = Integer.parseInt(args[0]);
@@ -33,7 +34,7 @@ public class Application {
             }
         }
         new MicroservicesRunner(port)
-                .deploy(new BankService())
+                .deploy(new BankService(), new AccountService() )
                 .start();
     }
 }

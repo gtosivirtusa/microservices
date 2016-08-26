@@ -19,42 +19,30 @@ package com.virtusa.microservices.services;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.virtusa.microservices.data.dao.BankDAO;
+import com.virtusa.microservices.data.dao.TransactionDAO;
 import com.virtusa.microservices.data.model.Bank;
-import com.virtusa.microservices.data.model.BusinessUnits;
+import com.virtusa.microservices.data.model.Transaction;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 /**
  * Hello service resource class.
  */
-@Path("/bank")
-public class BankService {
+@Path("/transaction")
+public class TransactionService {
 
     Gson gson=new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
     @GET
-    @Path("/getAllBanks")
+    @Path("/getTransactionByTransactionId/{transaction_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAllBanks(){
-        List<Bank> banks = new BankDAO().getAllBanks();
-        return gson.toJson(banks);
-    }
-
-    @GET
-    @Path("/getBankByBankId/{bank_id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getBankByBankId(@PathParam("bank_id") int bank_id){
-        Bank bank = new BankDAO().getBankByBankId(bank_id);
-        return gson.toJson(bank);
-    }
-
-    @GET
-    @Path("/getBranchesByBankId/{bank_id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getBranchesByBankId(@PathParam("bank_id") int bank_id){
-        List<BusinessUnits> businessUnitses = new BankDAO().getBranchesByBankId(bank_id);
-        return gson.toJson(businessUnitses);
+    public String get(@PathParam("transaction_id") int transaction_id){
+        Transaction transaction = new TransactionDAO().getTransactionById(transaction_id);
+        return gson.toJson(transaction);
     }
 }

@@ -2,6 +2,7 @@ package com.virtusa.microservices.data.dao;
 
 import com.virtusa.microservices.data.connection.ConnectionFactory;
 import com.virtusa.microservices.data.model.Bank;
+import com.virtusa.microservices.data.model.BusinessUnits;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
 
 public class BankDAO {
 
-    public List<Bank> getAll() {
+    public List<Bank> getAllBanks() {
         List<Bank> banks = new ArrayList<>();
         try {
             Connection con = ConnectionFactory.getConnection();
@@ -37,7 +38,7 @@ public class BankDAO {
     }
 
 
-    public Bank get(int bank_id){
+    public Bank getBankByBankId(int bank_id){
         Bank bank = null;
         try {
             Connection con = ConnectionFactory.getConnection();
@@ -55,6 +56,31 @@ public class BankDAO {
             Logger.getLogger(BankDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return bank;
+    }
+
+    public List<BusinessUnits> getBranchesByBankId(int bank_id){
+        List<BusinessUnits> businessUnits = new ArrayList<>();
+        try {
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM SmartBankDb.BusinessUnits where bank_id" + bank_id + ";");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                BusinessUnits businessUnit = new BusinessUnits();
+                businessUnit.setBusinessunit_id(resultSet.getInt("businessunit_id"));
+                businessUnit.setBank_id(resultSet.getInt("bank_id"));
+                businessUnit.setUnit_number(resultSet.getString("unit_number"));
+                businessUnit.setUnit_name(resultSet.getString("unit_name"));
+                businessUnit.setUnit_type(resultSet.getString("unit_type"));
+                businessUnit.setUnit_location(resultSet.getString("unit_location"));
+                businessUnit.setParent_unit(resultSet.getInt("parent_unit"));
+                businessUnit.setAddress(resultSet.getString("address"));
+                businessUnit.setPostcode(resultSet.getString("postcode"));
+                businessUnits.add(businessUnit);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BankDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return businessUnits;
     }
 
 }
