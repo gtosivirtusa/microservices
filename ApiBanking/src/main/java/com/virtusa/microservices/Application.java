@@ -16,8 +16,7 @@
 
 package com.virtusa.microservices;
 
-import com.virtusa.microservices.services.AccountService;
-import com.virtusa.microservices.services.BankService;
+import com.virtusa.microservices.services.*;
 import org.wso2.msf4j.MicroservicesRunner;
 
 /**
@@ -34,7 +33,7 @@ public class Application {
             }
         }
         new MicroservicesRunner(port)
-                .deploy(new BankService(), new AccountService() )
+                .deploy(new BankService(), new AccountService(), new TransactionService(), new PersonService(), new OrganizationService())
                 .start();
     }
 }

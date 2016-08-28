@@ -18,39 +18,38 @@ package com.virtusa.microservices.services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.virtusa.microservices.data.dao.BankDAO;
-import com.virtusa.microservices.data.dao.TransactionDAO;
-import com.virtusa.microservices.data.model.Bank;
-import com.virtusa.microservices.data.model.Transaction;
+import com.virtusa.microservices.data.dao.OrganizationDAO;
+import com.virtusa.microservices.data.dao.PersonDAO;
+import com.virtusa.microservices.data.model.Organization;
+import com.virtusa.microservices.data.model.Person;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 
 /**
  * Hello service resource class.
  */
-@Path("/transaction")
-public class TransactionService {
+@Path("/organization")
+public class OrganizationService {
 
     Gson gson=new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
     @GET
-    @Path("/getTransactionByTransactionId/{transaction_id}")
+    @Path("/getOrganizationByPartyID/{party_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getTransactionByTransactionId(@PathParam("transaction_id") int transaction_id){
-        Transaction transaction = new TransactionDAO().getTransactionById(transaction_id);
-        return gson.toJson(transaction);
+    public String getOrganizationByPartyID(@PathParam("party_id") int party_id){
+        Organization organization = new OrganizationDAO().getOrganizationByPartyId(party_id);
+        return gson.toJson(organization);
+    }
+    @GET
+    @Path("/getOrganizationByEMailID/{email_id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getOrganizationByEMailID(@PathParam("email_id") String email_id){
+        Organization organization = new OrganizationDAO().getOrganizationByEMailId(email_id);
+        return gson.toJson(organization);
     }
 
-    @GET
-    @Path("/getTransactionByAccountID/{sender_acct_id}/{fromDate}/{toDate}/{startIndex}/{pageSize}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getTransactionByAccountID(@PathParam("sender_acct_id") int sender_acct_id, @PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate, @PathParam("startIndex") int startIndex, @PathParam("pageSize") int pageSize){
-        List<Transaction> transactions = new TransactionDAO().getTransactionByAccountID(sender_acct_id,fromDate,toDate,startIndex,pageSize);
-        return gson.toJson(transactions);
-    }
 }

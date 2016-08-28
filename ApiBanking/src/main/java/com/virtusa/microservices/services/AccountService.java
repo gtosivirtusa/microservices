@@ -4,7 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.virtusa.microservices.data.dao.AccountDAO;
 import com.virtusa.microservices.data.model.Account;
-import com.virtusa.microservices.data.model._AccountByPartyID;
+import com.virtusa.microservices.data.model._AccountByPartyIDCorporate;
+import com.virtusa.microservices.data.model._AccountByPartyIDRetail;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -30,10 +31,18 @@ public class AccountService {
     }
 
     @GET
-    @Path("/getAccountByPartyId/{party_id}")
+    @Path("/getAccountByPartyIdRetail/{party_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAccountByPartyId(@PathParam("account_id") int party_id){
-        List<_AccountByPartyID> accountByPartyIDs = new AccountDAO().getAccountsbyPartyId(party_id);
+    public String getAccountByPartyIdRetail(@PathParam("party_id") int party_id){
+        List<_AccountByPartyIDRetail> accountByPartyIDs = new AccountDAO().getAccountsbyPartyIdRetail(party_id);
+        return gson.toJson(accountByPartyIDs);
+    }
+
+    @GET
+    @Path("/getAccountByPartyIdCorporate/{party_id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAccountByPartyIdCorporate(@PathParam("party_id") int party_id){
+        List<_AccountByPartyIDCorporate> accountByPartyIDs = new AccountDAO().getAccountsbyPartyIdCorporate(party_id);
         return gson.toJson(accountByPartyIDs);
     }
 

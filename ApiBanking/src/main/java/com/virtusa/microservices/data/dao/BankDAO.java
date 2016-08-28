@@ -62,7 +62,7 @@ public class BankDAO {
         List<BusinessUnits> businessUnits = new ArrayList<>();
         try {
             Connection con = ConnectionFactory.getConnection();
-            PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM SmartBankDb.BusinessUnits where bank_id" + bank_id + ";");
+            PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM SmartBankDb.BusinessUnits where bank_id=" + bank_id + ";");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 BusinessUnits businessUnit = new BusinessUnits();

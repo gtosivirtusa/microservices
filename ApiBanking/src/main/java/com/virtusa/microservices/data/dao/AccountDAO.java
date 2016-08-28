@@ -2,8 +2,8 @@ package com.virtusa.microservices.data.dao;
 
 import com.virtusa.microservices.data.connection.ConnectionFactory;
 import com.virtusa.microservices.data.model.Account;
-import com.virtusa.microservices.data.model.Bank;
-import com.virtusa.microservices.data.model._AccountByPartyID;
+import com.virtusa.microservices.data.model._AccountByPartyIDCorporate;
+import com.virtusa.microservices.data.model._AccountByPartyIDRetail;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,6 +26,7 @@ public class AccountDAO {
             PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM SmartBankDb.Account where account_id=" + account_id + ";");
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
+                account = new Account();
                 account.setAccount_id(resultSet.getInt("account_id"));
                 account.setBusinessunit_id(resultSet.getInt("businessunit_id"));
                 account.setAccount_opening_date(resultSet.getDate("account_opening_date"));
@@ -44,20 +45,41 @@ public class AccountDAO {
         return account;
     }
 
-    public List<_AccountByPartyID> getAccountsbyPartyId(int party_id){
-        List<_AccountByPartyID> accountByPartyIDs = new ArrayList<>();
+    public List<_AccountByPartyIDRetail> getAccountsbyPartyIdRetail(int party_id){
+        List<_AccountByPartyIDRetail> accountByPartyIDs = new ArrayList<>();
         try {
             Connection con = ConnectionFactory.getConnection();
-            PreparedStatement preparedStatement = con.prepareStatement("SELECT ao.account_id,ao.account_owner_id_number,ao.AccountRefNumber,a.businessunit_id,a.bank_id,a.account_type_id,a.balance FROM SmartBankDb.AccountOwners as ao INNER JOIN SmartBankDb.Account as a ON a.account_id=ao.account_id and ao.party_id=" + party_id + ";");
+            PreparedStatement preparedStatement = con.prepareStatement("SELECT ao.account_id,p.FORENAMES,p.MIDDLENAME,p.Lastname,a.bank_id,act.account_type,a.balance FROM SmartBankDb.AccountOwners as ao INNER JOIN SmartBankDb.Account as a INNER JOIN SmartBankDb.person as p INNER JOIN AccountType as act ON a.account_id=ao.account_id and ao.party_id=p.party_id and act.account_type_id=a.account_type_id and ao.party_id=" + party_id + ";");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                _AccountByPartyID accountByPartyID = new _AccountByPartyID();
+                _AccountByPartyIDRetail accountByPartyID = new _AccountByPartyIDRetail();
                 accountByPartyID.setAccount_id(resultSet.getInt("account_id"));
-                accountByPartyID.setAccount_owner_id_number(resultSet.getInt("account_owner_id_number"));
-                accountByPartyID.setAccountRefNumber(resultSet.getString("AccountRefNumber"));
-                accountByPartyID.setBusinessunit_id(resultSet.getInt("businessunit_id"));
+                accountByPartyID.setFORENAMES(resultSet.getString("FORENAMES"));
+                accountByPartyID.setMIDDLENAME(resultSet.getString("MIDDLENAME"));
+                accountByPartyID.setLastname(resultSet.getString("Lastname"));
                 accountByPartyID.setBank_id(resultSet.getInt("bank_id"));
-                accountByPartyID.setAccount_type_id(resultSet.getInt("account_type_id"));
+                accountByPartyID.setAccount_type(resultSet.getString("account_type"));
+                accountByPartyID.setBalance(resultSet.getDouble("balance"));
+                accountByPartyIDs.add(accountByPartyID);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BankDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return accountByPartyIDs;
+    }
+
+    public List<_AccountByPartyIDCorporate> getAccountsbyPartyIdCorporate(int party_id){
+        List<_AccountByPartyIDCorporate> accountByPartyIDs = new ArrayList<>();
+        try {
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement preparedStatement = con.prepareStatement("SELECT ao.account_id,o.organisation_name,a.bank_id,act.account_type,a.balance FROM SmartBankDb.AccountOwners as ao INNER JOIN SmartBankDb.Account as a INNER JOIN SmartBankDb.organization as o INNER JOIN AccountType as act ON a.account_id=ao.account_id and ao.party_id=o.party_id and act.account_type_id=a.account_type_id and ao.party_id=" + party_id + ";");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                _AccountByPartyIDCorporate accountByPartyID = new _AccountByPartyIDCorporate();
+                accountByPartyID.setAccount_id(resultSet.getInt("account_id"));
+                accountByPartyID.setOrganisation_name(resultSet.getString("organisation_name"));
+                accountByPartyID.setBank_id(resultSet.getInt("bank_id"));
+                accountByPartyID.setAccount_type(resultSet.getString("account_type"));
                 accountByPartyID.setBalance(resultSet.getDouble("balance"));
                 accountByPartyIDs.add(accountByPartyID);
             }

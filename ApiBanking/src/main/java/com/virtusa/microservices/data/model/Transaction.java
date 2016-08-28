@@ -3,6 +3,7 @@ package com.virtusa.microservices.data.model;
 import com.google.gson.annotations.Expose;
 
 import java.sql.Date;
+import java.sql.Time;
 
 /**
  * Created by DDEZOYSA on 8/26/2016.
@@ -13,7 +14,8 @@ public class Transaction {
     private int transaction_id;
     @Expose
     private Date transaction_date;
-    private Date trans_time;
+    @Expose
+    private Time trans_time;
     @Expose
     private int sender_acct_id;
     @Expose
@@ -21,17 +23,22 @@ public class Transaction {
     @Expose
     private int transaction_amt;
     @Expose
-    private int Transaction_type;
+    private String Transaction_type;
     @Expose
     private int sender_bank_id;
+    @Expose
     private int receiver_bank_id;
-    private String Transaction;
+    @Expose
+    private String from_bank_location;
+    @Expose
     private String to_bank_location;
     @Expose
     private int swift_code;
+    @Expose
     private String swift_code_trace;
     @Expose
     private String purpose;
+    @Expose
     private String status;
 
     public int getTransaction_id() {
@@ -50,11 +57,11 @@ public class Transaction {
         this.transaction_date = transaction_date;
     }
 
-    public Date getTrans_time() {
+    public Time getTrans_time() {
         return trans_time;
     }
 
-    public void setTrans_time(Date trans_time) {
+    public void setTrans_time(Time trans_time) {
         this.trans_time = trans_time;
     }
 
@@ -82,11 +89,11 @@ public class Transaction {
         this.transaction_amt = transaction_amt;
     }
 
-    public int getTransaction_type() {
+    public String getTransaction_type() {
         return Transaction_type;
     }
 
-    public void setTransaction_type(int transaction_type) {
+    public void setTransaction_type(String transaction_type) {
         Transaction_type = transaction_type;
     }
 
@@ -106,12 +113,12 @@ public class Transaction {
         this.receiver_bank_id = receiver_bank_id;
     }
 
-    public String getTransaction() {
-        return Transaction;
+    public String getFrom_bank_location() {
+        return from_bank_location;
     }
 
-    public void setTransaction(String transaction) {
-        Transaction = transaction;
+    public void setFrom_bank_location(String from_bank_location) {
+        this.from_bank_location = from_bank_location;
     }
 
     public String getTo_bank_location() {

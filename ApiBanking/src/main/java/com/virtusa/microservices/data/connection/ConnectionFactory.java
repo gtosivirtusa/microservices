@@ -13,7 +13,7 @@ public class ConnectionFactory {
     public static Connection getConnection(){
         try {
             if (con == null) {
-                String connectionURL = "jdbc:mysql://pcslatg.c32qjmxkdtko.eu-west-1.rds.amazonaws.com:3306/SmartBankDb";
+                String connectionURL = "jdbc:mysql://pcslatg.c32qjmxkdtko.eu-west-1.rds.amazonaws.com:3306/SmartBankDb?zeroDateTimeBehavior=convertToNull";
                 Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
                 con = DriverManager.getConnection(connectionURL, "atg", "Polaris8012");
             }
