@@ -47,9 +47,9 @@ public class TransactionService {
     }
 
     @GET
-    @Path("/getTransactionByAccountID/{sender_acct_id}/{fromDate}/{toDate}/{startIndex}/{pageSize}")
+    @Path("/getTransactionByAccountId/{sender_acct_id}/{fromDate}/{toDate}/{startIndex}/{pageSize}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getTransactionByAccountID(@PathParam("sender_acct_id") int sender_acct_id, @PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate, @PathParam("startIndex") int startIndex, @PathParam("pageSize") int pageSize){
+    public String getTransactionByAccountId(@PathParam("sender_acct_id") int sender_acct_id, @PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate, @PathParam("startIndex") int startIndex, @PathParam("pageSize") int pageSize){
         List<Transaction> transactions = new TransactionDAO().getTransactionByAccountID(sender_acct_id,fromDate,toDate,startIndex,pageSize);
         return gson.toJson(transactions);
     }

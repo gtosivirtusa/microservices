@@ -38,16 +38,16 @@ public class OrganizationService {
     Gson gson=new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
     @GET
-    @Path("/getOrganizationByPartyID/{party_id}")
+    @Path("/getOrganizationByPartyId/{party_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getOrganizationByPartyID(@PathParam("party_id") int party_id){
+    public String getOrganizationByPartyId(@PathParam("party_id") int party_id){
         Organization organization = new OrganizationDAO().getOrganizationByPartyId(party_id);
         return gson.toJson(organization);
     }
     @GET
-    @Path("/getOrganizationByEMailID/{email_id}")
+    @Path("/getOrganizationByEMailId/{email_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getOrganizationByEMailID(@PathParam("email_id") String email_id){
+    public String getOrganizationByEMailId(@PathParam("email_id") String email_id){
         Organization organization = new OrganizationDAO().getOrganizationByEMailId(email_id);
         return gson.toJson(organization);
     }

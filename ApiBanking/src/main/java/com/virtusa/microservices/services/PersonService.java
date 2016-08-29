@@ -39,9 +39,9 @@ public class PersonService {
     Gson gson=new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
     @GET
-    @Path("/getPersonByPartyID/{party_id}")
+    @Path("/getPersonByPartyId/{party_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPersonByPartyID(@PathParam("party_id") int party_id){
+    public String getPersonByPartyId(@PathParam("party_id") int party_id){
         Person person = new PersonDAO().getPersonByPartyId(party_id);
         return gson.toJson(person);
     }
