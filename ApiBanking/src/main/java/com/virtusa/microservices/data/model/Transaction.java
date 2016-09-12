@@ -2,6 +2,7 @@ package com.virtusa.microservices.data.model;
 
 import com.google.gson.annotations.Expose;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -17,21 +18,21 @@ public class Transaction {
     @Expose
     private Time trans_time;
     @Expose
-    private int sender_acct_id;
+    private int acct_id;
     @Expose
-    private int receiver_acct_id;
+    private int counterparty_acct_id;
     @Expose
     private int transaction_amt;
     @Expose
     private String Transaction_type;
     @Expose
-    private int sender_bank_id;
+    private int bank_id;
     @Expose
-    private int receiver_bank_id;
+    private int counterparty_bank_id;
     @Expose
-    private String from_bank_location;
+    private String bank_location;
     @Expose
-    private String to_bank_location;
+    private String counterparty_bank_location;
     @Expose
     private int swift_code;
     @Expose
@@ -40,6 +41,8 @@ public class Transaction {
     private String purpose;
     @Expose
     private String status;
+    @Expose
+    private BigDecimal balance;
 
     public int getTransaction_id() {
         return transaction_id;
@@ -65,20 +68,20 @@ public class Transaction {
         this.trans_time = trans_time;
     }
 
-    public int getSender_acct_id() {
-        return sender_acct_id;
+    public int getAcct_id() {
+        return acct_id;
     }
 
-    public void setSender_acct_id(int sender_acct_id) {
-        this.sender_acct_id = sender_acct_id;
+    public void setAcct_id(int acct_id) {
+        this.acct_id = acct_id;
     }
 
-    public int getReceiver_acct_id() {
-        return receiver_acct_id;
+    public int getCounterparty_acct_id() {
+        return counterparty_acct_id;
     }
 
-    public void setReceiver_acct_id(int receiver_acct_id) {
-        this.receiver_acct_id = receiver_acct_id;
+    public void setCounterparty_acct_id(int counterparty_acct_id) {
+        this.counterparty_acct_id = counterparty_acct_id;
     }
 
     public int getTransaction_amt() {
@@ -97,36 +100,36 @@ public class Transaction {
         Transaction_type = transaction_type;
     }
 
-    public int getSender_bank_id() {
-        return sender_bank_id;
+    public int getBank_id() {
+        return bank_id;
     }
 
-    public void setSender_bank_id(int sender_bank_id) {
-        this.sender_bank_id = sender_bank_id;
+    public void setBank_id(int bank_id) {
+        this.bank_id = bank_id;
     }
 
-    public int getReceiver_bank_id() {
-        return receiver_bank_id;
+    public int getCounterparty_bank_id() {
+        return counterparty_bank_id;
     }
 
-    public void setReceiver_bank_id(int receiver_bank_id) {
-        this.receiver_bank_id = receiver_bank_id;
+    public void setCounterparty_bank_id(int counterparty_bank_id) {
+        this.counterparty_bank_id = counterparty_bank_id;
     }
 
-    public String getFrom_bank_location() {
-        return from_bank_location;
+    public String getBank_location() {
+        return bank_location;
     }
 
-    public void setFrom_bank_location(String from_bank_location) {
-        this.from_bank_location = from_bank_location;
+    public void setBank_location(String bank_location) {
+        this.bank_location = bank_location;
     }
 
-    public String getTo_bank_location() {
-        return to_bank_location;
+    public String getCounterparty_bank_location() {
+        return counterparty_bank_location;
     }
 
-    public void setTo_bank_location(String to_bank_location) {
-        this.to_bank_location = to_bank_location;
+    public void setCounterparty_bank_location(String counterparty_bank_location) {
+        this.counterparty_bank_location = counterparty_bank_location;
     }
 
     public int getSwift_code() {
@@ -159,5 +162,13 @@ public class Transaction {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 }

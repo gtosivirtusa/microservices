@@ -27,15 +27,9 @@ public class Person {
     @Expose
     private String PREFERRED;
     @Expose
-    private String INITIALS;
-    @Expose
     private String TITLE;
     @Expose
-    private String SALUTATION;
-    @Expose
     private Date DOB;
-    @Expose
-    private String PROOF_OF_AGE;
     @Expose
     private String MARITAL_STATUS;
     @Expose
@@ -44,8 +38,6 @@ public class Person {
     private String DECEASED;
     @Expose
     private String DATE_OF_DEATH;
-    @Expose
-    private String MAIDEN_NAME;
     @Expose
     private String EMPLOYMENT_STATUS;
     @Expose
@@ -127,14 +119,6 @@ public class Person {
         this.PREFERRED = PREFERRED;
     }
 
-    public String getINITIALS() {
-        return INITIALS;
-    }
-
-    public void setINITIALS(String INITIALS) {
-        this.INITIALS = INITIALS;
-    }
-
     public String getTITLE() {
         return TITLE;
     }
@@ -143,28 +127,12 @@ public class Person {
         this.TITLE = TITLE;
     }
 
-    public String getSALUTATION() {
-        return SALUTATION;
-    }
-
-    public void setSALUTATION(String SALUTATION) {
-        this.SALUTATION = SALUTATION;
-    }
-
     public Date getDOB() {
         return DOB;
     }
 
     public void setDOB(Date DOB) {
         this.DOB = DOB;
-    }
-
-    public String getPROOF_OF_AGE() {
-        return PROOF_OF_AGE;
-    }
-
-    public void setPROOF_OF_AGE(String PROOF_OF_AGE) {
-        this.PROOF_OF_AGE = PROOF_OF_AGE;
     }
 
     public String getMARITAL_STATUS() {
@@ -197,14 +165,6 @@ public class Person {
 
     public void setDATE_OF_DEATH(String DATE_OF_DEATH) {
         this.DATE_OF_DEATH = DATE_OF_DEATH;
-    }
-
-    public String getMAIDEN_NAME() {
-        return MAIDEN_NAME;
-    }
-
-    public void setMAIDEN_NAME(String MAIDEN_NAME) {
-        this.MAIDEN_NAME = MAIDEN_NAME;
     }
 
     public String getEMPLOYMENT_STATUS() {

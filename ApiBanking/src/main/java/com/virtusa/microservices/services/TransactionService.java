@@ -18,9 +18,8 @@ package com.virtusa.microservices.services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.virtusa.microservices.data.dao.BankDAO;
 import com.virtusa.microservices.data.dao.TransactionDAO;
-import com.virtusa.microservices.data.model.Bank;
+import com.virtusa.microservices.data.model.AccountOwner;
 import com.virtusa.microservices.data.model.Transaction;
 
 import javax.ws.rs.GET;
@@ -47,10 +46,19 @@ public class TransactionService {
     }
 
     @GET
-    @Path("/getTransactionByAccountId/{sender_acct_id}/{fromDate}/{toDate}/{startIndex}/{pageSize}")
+    @Path("/getTransactionByAccountId/{acct_id}/{fromDate}/{toDate}/{startIndex}/{pageSize}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getTransactionByAccountId(@PathParam("sender_acct_id") int sender_acct_id, @PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate, @PathParam("startIndex") int startIndex, @PathParam("pageSize") int pageSize){
-        List<Transaction> transactions = new TransactionDAO().getTransactionByAccountID(sender_acct_id,fromDate,toDate,startIndex,pageSize);
+    public String getTransactionByAccountId(@PathParam("acct_id") int acct_id, @PathParam("fromDate") String fromDate, @PathParam("toDate") String toDate, @PathParam("startIndex") int startIndex, @PathParam("pageSize") int pageSize){
+        List<Transaction> transactions = new TransactionDAO().getTransactionByAccountId(acct_id,fromDate,toDate,startIndex,pageSize);
         return gson.toJson(transactions);
+    }
+
+
+    @GET
+    @Path("/getCounterPartiesByPartyId/{party_id}/{fromDate}/{toDate}/{startIndex}/{pageSize}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getCounterPartiesByPartyId(@PathParam("party_id") int party_id){
+        List<AccountOwner> accountOwners = new TransactionDAO().getCounterPartiesByPartyId(party_id);
+        return gson.toJson(accountOwners);
     }
 }
